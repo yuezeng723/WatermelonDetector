@@ -1,4 +1,4 @@
-image = imread("watermelon-imgs/melon15.jpg");
+image = imread("watermelon-imgs/melon15.jpeg");
 I = image;
 figure;
 imshow(I)
@@ -60,4 +60,17 @@ radius = radius * radius_factor / radius_adjust;
 imshow(image);
 viscircles(center, radius,'Color','red');
 pause(0.5)
+
+% get and save the detected mask
+xc = center(:,1);
+yc = center(:,2);
+[xDim, yDim] = size(bw_I);
+[xx,yy] = meshgrid(1:yDim,1:xDim);
+mask = false(xDim,yDim);
+for ii = 1:numel(radius)
+	mask = mask | hypot(xx - xc(ii), yy - yc(ii)) <= radius(ii);
+end
+% figure
+% imshow(mask);
+imwrite(mask, strcat(img_name, '_detected_mask.tiff'));
 
