@@ -2,7 +2,7 @@ function [melonCenter, melonRadius] = getCircle(s, approxLength)
 %parameter s: the preprocessed image 
 %output melonCenter: coordinate of watermelon's center
 %output melonRadius: radius of the watermelon
-[H,T,R] = hough(s,'RhoResolution',5,'Theta',-90:5:89);
+[H,T,R] = hough(s,'RhoResolution',8,'Theta',-90:5:89);
 % figure(Position=[400,400,1200,400]), subplot(1,2,1)
 % imshow(H,[],'XData',T,'YData',R,...
 %             'InitialMagnification','fit');
@@ -34,11 +34,8 @@ for k = 1:length(lines)
    end
 end
 if xy_long == 0
-    melonRadius = "Error";
-    melonCenter = "Error";
-else
-    melonRadius = max_len/2;
-    melonCenter = [mean(xy_long(:,1)), mean(xy_long(:,2))];
-end
+    
+melonRadius = max_len/2;
+melonCenter = [mean(xy_long(:,1)), mean(xy_long(:,2))];
 end
 

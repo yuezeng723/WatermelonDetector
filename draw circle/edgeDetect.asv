@@ -44,20 +44,17 @@ for i = 1:param1
     imshow(s)
     pause(0.5);
     [currentMelonCenter, currentMelonRadius] = getCircle(s,approxLength);
-    if isstring(currentMelonCenter)
+    if currentMelonCenter == "Error"
         idx_end = i;
-        radius_adjust = sum(weightsArray(1:idx_end ));
-        center = center / radius_adjust;
+        radius_adjust = sum(weightsArray(:idx_end ));
         break;
     end
     center = center + weightsArray(i) * currentMelonCenter;
     radius = radius + weightsArray(i) * currentMelonRadius;
-    viscircles(currentMelonCenter, currentMelonRadius,'Color','red');
-    pause(0.5)
 end
 radius_factor = 1.2;
 
-radius = radius * radius_factor / radius_adjust;
+radius = radius * radius_factor;
 imshow(image);
 viscircles(center, radius,'Color','red');
 pause(0.5)
