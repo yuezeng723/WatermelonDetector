@@ -40,7 +40,6 @@ for i = 1:param1
     approxLength = ceil(min(size(blurred)) * 0.2);
     s = bwskel(~blurred,'MinBranchLength',approxLength);
     s = s.* (h_mask_1) + zeros(size(s)).*(~h_mask_1) ;
-    %s = convPercentage(s, 3);
     imshow(s)
     pause(0.5);
     [currentMelonCenter, currentMelonRadius] = getCircle(s,approxLength);
@@ -62,11 +61,3 @@ imshow(image);
 viscircles(center, radius,'Color','red');
 pause(0.5)
 
-
-% Increase the width of lines
-function ret = convPercentage(im, n)
-    kernel = ones(n);
-    y = conv2(im, kernel, 'same');
-    ret = y/(n^2);
-    ret = imbinarize(ret, 0.1);
-end
